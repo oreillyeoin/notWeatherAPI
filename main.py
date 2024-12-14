@@ -61,6 +61,10 @@ async def add_reading(data: Reading):
   conn = sqlite3.connect('readings.db')
   c = conn.cursor()
 
+  c.execute("SELECT 1 FROM readings WHERE id = ?", (data.id,))
+  if c.fetchone():
+    return {"error": "Reading ID already exists"}
+
   # Add new reading into table
   c.execute("INSERT INTO readings VALUES (?, ?, ?, ?, ?, ?)",
             (data.id, data.sensor_id, data.temperature, data.humidity, data.wind_speed, data.timestamp))
@@ -219,6 +223,12 @@ Query Format:
 Example queries:
 ?sensor_id=1&metric=temperature,humidity&statistic=avg
 ?metric=wind_speed&stat=min&time_range=2024-01-01,2024-12-13
+
+Input Validation:
+BaseModel automatically validates input data based on type annotations defined in the class.
+If input does not match expected type, validation error with invalid/missing input will be raised
+
+if had more time: ensure input sanitisation to avoid SQL injections
 
 '''
 
