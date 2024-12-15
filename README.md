@@ -17,12 +17,12 @@ Example queries:
 /get-readings?sensor=3&metrics=humidity&stat=sum&time_range=2024-01-01,2025,01-01  
 
 POST REQUESTS (127.0.0.1:8000/add-reading)  
-Data Format:
-{
-  "id": "2321",
-  "sensor_id": "2",
-  "temperature": 12.5,
-  "humidity": 60,
-  "wind_speed": 12.3,
-  "timestamp": "2024-12-12"
-}
+Data Format:  
+{  
+  "id": "2321",  
+  "sensor_id": "2",  
+  "temperature": 12.5,  
+  "humidity": 60,  
+  "wind_speed": 12.3,  
+  "timestamp": "2024-12-12"  
+}  
