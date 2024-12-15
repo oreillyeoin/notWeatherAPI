@@ -15,8 +15,8 @@ Query Format:
 /get-readings?sensor_id=____&metrics=_____,_____&statistic=____&time_range=____,____
 
 Example queries:
-?sensor_id=1&metric=temperature,humidity&statistic=avg
-?metric=wind_speed&stat=min&time_range=2024-01-01,2024-12-13
+?sensor_id=1&metrics=temperature,humidity&statistic=avg
+?metrics=wind_speed&stat=min&time_range=2024-01-01,2024-12-13
 
 
 
