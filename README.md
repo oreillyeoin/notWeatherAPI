@@ -10,7 +10,7 @@ Uvicorn used to run the script in the command line (uvicorn main:app --reload).
 Postman used for GET and POST requests (https://www.postman.com/)  
 
 GET REQUESTS (127.0.0.1:8000/get-readings)  
-Query Format: /get-readings?sensor=____&metrics=_____,_____&stat=____&time_range=____,____
+Query Format: /get-readings?sensor=XXXXX&metrics=XXXXX,XXXXX&stat=XXXXX&time_range=XXXXX,XXXXX
 Example queries:  
 /get-readings?sensor=1&metrics=temperature,humidity&stat=avg  
 /get-readings?metrics=wind_speed&stat=min&time_range=2024-01-01,2024-12-13  
