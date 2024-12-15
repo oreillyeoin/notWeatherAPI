@@ -1,12 +1,12 @@
 # notWeatherAPI
 This is definitely not a weather API
 
-Dependencies:##
-FastAPI: Web framework for building APIs in Python 
-Uvicorn: Web server implementation for Python
-pytest: Testing framework for Python - for integration tests
-HTTPX: HTTP client for Python
-(pip install fastapi uvicorn pytest httpx)
+Dependencies:  
+FastAPI: Web framework for building APIs in Python  
+Uvicorn: Web server implementation for Python  
+pytest: Testing framework for Python - for integration tests  
+HTTPX: HTTP client for Python  
+(pip install fastapi uvicorn pytest httpx)  
 
 Running the API:
 Uvicorn used to run the script in the command line (uvicorn main:app --reload).
