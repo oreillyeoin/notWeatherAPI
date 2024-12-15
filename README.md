@@ -1,10 +1,10 @@
 Dependencies:  
 FastAPI: Web framework for building APIs in Python  
 Uvicorn: Web server implementation for Python  
-pytest: Testing framework for Python
-HTTPX: HTTP client for Python
-(pip install fastapi uvicorn pytest httpx)  
-
+pytest: Testing framework for Python  
+HTTPX: HTTP client for Python  
+(pip install fastapi uvicorn pytest httpx)   
+ 
 Running the API:  
 Uvicorn used to run the script in the command line (uvicorn main:app --reload).   
 Postman used for GET and POST requests (https://www.postman.com/)  
