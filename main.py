@@ -44,6 +44,7 @@ def init_db():
     conn.close()
 
 
+# Class for holding Weather Reading data
 # BaseModel enables automatic input validation, error message with invalid or missing fields will be returned
 class Reading(BaseModel):
     id: int
@@ -66,7 +67,7 @@ async def add_reading(data: Reading):
     conn = sqlite3.connect('readings.db')
     c = conn.cursor()
 
-    # check for duplicate IDs
+    # check for duplicate updates
     c.execute("SELECT 1 FROM readings WHERE id = ?", (data.id,))
     if c.fetchone():
         return {"error": "Reading ID already exists"}
@@ -85,14 +86,13 @@ async def add_reading(data: Reading):
 @app.get("/get-readings")
 async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, request: Request = None):
 
-    # Check for unexpected parameters
+    # Check for unexpected input parameters
     valid_params = {'sensor', 'metrics', 'stat', 'time_range'}
     for param in request.query_params:
         if param not in valid_params:
             raise HTTPException(status_code=400, detail=f"Unexpected parameter: {param}")
 
     # CUSTOM SQL REQUEST BUILT DYNAMICALLY
-    # db connection
     conn = sqlite3.connect('readings.db')
     c = conn.cursor()
     # variables for SQL WHERE & AND commands
@@ -117,15 +117,15 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
 
 
     # STATISTIC PARAM
-    # if only taking latest result, no statistic used.
+    # if only taking latest update, no statistic needed (No AVG/MIN etc)
     # in case with no time filter, string will have first letter "O"
     if time_filter[0] == "O":
         stat = ""
-    # else if no stat specified, default to average
+    # else if no statistic specified, default to average
     elif stat == None:
         stat = "AVG"
     else:
-        # take params in lower case for simplicity, cast to upper then for SQL command
+        # params taken in lower case for simplicity, cast to upper then for SQL command
         stat = stat.upper()
 
 
