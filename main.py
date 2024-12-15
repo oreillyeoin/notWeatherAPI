@@ -91,9 +91,7 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
         if param not in valid_params:
             raise HTTPException(status_code=400, detail=f"Unexpected parameter: {param}")
 
-
     # CUSTOM SQL REQUEST BUILT DYNAMICALLY
-
     # db connection
     conn = sqlite3.connect('readings.db')
     c = conn.cursor()
@@ -103,10 +101,8 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
 
 
     # TIME RANGE PARAM
-
     # IF time range NOT specified, default to selecting most recent data
     time_filter = "ORDER BY timestamp DESC LIMIT 1"
-
     # IF time range specified, request will inlcude SQL BETWEEN filter
     if time_range != None:
         # Split time range param into start and end dates
@@ -121,7 +117,6 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
 
 
     # STATISTIC PARAM
-
     # if only taking latest result, no statistic used.
     # in case with no time filter, string will have first letter "O"
     if time_filter[0] == "O":
@@ -135,7 +130,6 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
 
 
     # METRICS PARAM
-
     # if none specified, return all
     if metrics == None:
         metrics = "temperature,humidity,wind_speed"
@@ -160,7 +154,6 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
 
 
     # SENSOR ID PARAM
-
     # if no sensor specified, exclude field from SQL request
     sensor_filter = ""
 
@@ -178,6 +171,7 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
         and_sql = "AND "
 
 
+    # SQL REQUEST
     try:
         # execute SQL command to query database
         c.execute(f"SELECT {metrics_sql} FROM readings {where_sql} {sensor_filter} {and_sql} {time_filter}")
@@ -199,68 +193,3 @@ async def get_readings(sensor=None, metrics=None, stat=None, time_range=None, re
 
     finally:
         conn.close()
-
-
-'''
-NOTES:
-
-Application
-    -App receives weather data from multiple sensors
-        -Sensors report metrics such as temperature, humidity, wind speed
-    
-    -App can receive new data (as weather changes) via api call
-    
-    -App must allow querying sensor data
-        -Query should define:
-            -which (or all) sensors to include in results
-            -the metrics (resp, humidity) to return
-            -statistic for metric (min, max, sum or avg by default)
-            -date range (between 1 day and 1 month), if not specified return latest data
-            -example "Give me the average temperature and humidity for sensor 1 in the last week."
-        
-    App receives data via api call, stores it in database. POST
-    App can be queried and data is retrieved from database. GET
-
-Checklist:  
-    setup api *
-    setup storage *
-      -SQL table
-    configure post requests to add data *
-    configure get requests to return data *
-        
-        
-Technical Reqs
-    -App should be REST API, no UI
-    -App data should be stored in database/storage
-    -Include input validation and exception handling
-    -Include unit/integration testing - complete test coverage not expected
-    
-    
-Data Format:
-SQL Table
-id	sensor_id	temperature humidity	wind_speed	timestamp
-
-{
-  "id": "1112",
-  "sensor_id": "2",
-  "temperature": 12.5,
-  "humidity": 60,
-  "wind_speed": 12.3,
-  "timestamp": "2024-12-12"
-}
-
-Query Format:
-/get-readings?sensor=____&metrics=_____,_____&stat=____&time_range=____,____
-
-Example queries:
-?sensor=1&metrics=temperature,humidity&stat=avg
-?metrics=wind_speed&stat=min&time_range=2024-01-01,2024-12-13
-
-Input Validation:
-BaseModel automatically validates input data based on type annotations defined in the class.
-If input does not match expected type, validation error with invalid/missing input will be raised
-
-if had more time: 
--Ensure input sanitisation to avoid SQL injections
-
-'''
