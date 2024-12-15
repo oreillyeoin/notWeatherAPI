@@ -1,16 +1,18 @@
 # notWeatherAPI
 This is definitely not a weather API
 
-Dependencies:
-FastAPI: Web framework for building APIs in Python (pip install fastapi)
-Uvicorn: Web server implementation for Python (pip install uvicorn)
+Dependencies:##
+FastAPI: Web framework for building APIs in Python 
+Uvicorn: Web server implementation for Python
+pytest: Testing framework for Python - for integration tests
+HTTPX: HTTP client for Python
+(pip install fastapi uvicorn pytest httpx)
 
 Running the API:
 Uvicorn used to run the script in the command line (uvicorn main:app --reload).
 Postman used for GET and POST requests (https://www.postman.com/)
 
-GET REQUESTS
-(127.0.0.1:8000/get-readings)
+GET REQUESTS (127.0.0.1:8000/get-readings)
 Query Format:
 /get-readings?sensor=____&metrics=_____,_____&stat=____&time_range=____,____
 
