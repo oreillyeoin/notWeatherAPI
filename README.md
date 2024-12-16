@@ -34,3 +34,7 @@ _(127.0.0.1:8000/add-reading)_
   "timestamp": "2024-12-12"  
 }  
 ```
+
+### TESTING
+_test_app.py_ script used for integration testing  
+Run: _pytest test_app.py_
