@@ -22,7 +22,9 @@ _(127.0.0.1:8000/get-readings)_
 /get-readings?sensor=3&metrics=humidity&stat=sum&time_range=2024-01-01,2025,01-01  
 
 ### WEATHER UPDATES / POST REQUESTS 
-_(127.0.0.1:8000/add-reading)_
+_(127.0.0.1:8000/add-reading)_  
+
+In Postman, create a POST request and enter the above URL. Then, click on the tab labeled 'Body', and select 'Raw' as the format. JSON data can now be pasted into this field.
 ##### Data Format:
 ```
 {  
